@@ -1,16 +1,16 @@
-# Tunnl.gg
+# tunnl.pro
 
 A minimal SSH tunneling service. Expose your local apps to the internet with a single command.
 
 ```bash
-ssh -t -R 80:localhost:8080 proxy.tunnl.gg
+ssh -t -R 80:localhost:8080 proxy.tunnl.pro
 ```
 
 > **Note:** The `-t` flag is required to allocate a TTY, which allows the server to display your tunnel URL.
 
 ## Features
 
-- Memorable subdomain per connection (e.g., `https://happy-tiger-a1b2c3d4.tunnl.gg`)
+- Memorable subdomain per connection (e.g., `https://happy-tiger-a1b2c3d4.tunnl.pro`)
 - Automatic SSL via Let's Encrypt
 - WebSocket support
 - Comprehensive rate limiting and abuse protection
@@ -40,7 +40,7 @@ ssh -t -R 80:localhost:8080 proxy.tunnl.gg
 ## Project Structure
 
 ```text
-tunnl.gg/
+tunnl.pro/
 ├── cmd/tunnl/              # Application entry point
 ├── internal/
 │   ├── config/             # Configuration and constants
@@ -94,8 +94,8 @@ sudo certbot certonly --standalone -d yourdomain.com
 
 ```bash
 # Clone the repository
-git clone https://github.com/klipitkas/tunnl.gg.git
-cd tunnl.gg
+git clone https://github.com/tavoweb/tunnl.pro.git
+cd tunnl.pro
 
 # Create data directories
 mkdir -p data/certs
@@ -136,8 +136,8 @@ ssh -p 2222 user@your-server
 
 ```bash
 # Requires Go 1.24+
-git clone https://github.com/klipitkas/tunnl.gg.git
-cd tunnl.gg
+git clone https://github.com/tavoweb/tunnl.pro.git
+cd tunnl.pro
 
 # Build optimized binary (~6MB)
 make build-small
@@ -154,7 +154,7 @@ sudo nano /etc/systemd/system/tunnl.service
 
 ```ini
 [Unit]
-Description=Tunnl.gg SSH Tunnel Service
+Description=tunnl.pro SSH Tunnel Service
 After=network.target
 
 [Service]
@@ -199,9 +199,9 @@ sudo systemctl enable --now tunnl
 | `HTTPS_ADDR` | `:443` | HTTPS server listen address |
 | `STATS_ADDR` | `127.0.0.1:9090` | Stats endpoint (localhost only) |
 | `HOST_KEY_PATH` | `host_key` | Path to SSH host key |
-| `TLS_CERT` | `/etc/letsencrypt/live/tunnl.gg/fullchain.pem` | TLS certificate path |
-| `TLS_KEY` | `/etc/letsencrypt/live/tunnl.gg/privkey.pem` | TLS private key path |
-| `DOMAIN` | `tunnl.gg` | Domain name for the service |
+| `TLS_CERT` | `/etc/letsencrypt/live/tunnl.pro/fullchain.pem` | TLS certificate path |
+| `TLS_KEY` | `/etc/letsencrypt/live/tunnl.pro/privkey.pem` | TLS private key path |
+| `DOMAIN` | `tunnl.pro` | Domain name for the service |
 
 ## Usage
 
@@ -209,19 +209,19 @@ sudo systemctl enable --now tunnl
 
 ```bash
 # Expose local port 8080
-ssh -t -R 80:localhost:8080 proxy.tunnl.gg
+ssh -t -R 80:localhost:8080 proxy.tunnl.pro
 ```
 
 ### Expose a Different Host
 
 ```bash
-ssh -t -R 80:192.168.1.100:3000 proxy.tunnl.gg
+ssh -t -R 80:192.168.1.100:3000 proxy.tunnl.pro
 ```
 
 ### Keep Connection Alive
 
 ```bash
-ssh -t -R 80:localhost:8080 -o ServerAliveInterval=60 proxy.tunnl.gg
+ssh -t -R 80:localhost:8080 -o ServerAliveInterval=60 proxy.tunnl.pro
 ```
 
 ### Bypass Interstitial Warning
@@ -229,7 +229,7 @@ ssh -t -R 80:localhost:8080 -o ServerAliveInterval=60 proxy.tunnl.gg
 Browser requests show a phishing warning (cookie-based, lasts 1 day). To skip programmatically:
 
 ```bash
-curl -H "tunnl-skip-browser-warning: 1" https://happy-tiger-a1b2c3d4.tunnl.gg
+curl -H "tunnl-skip-browser-warning: 1" https://happy-tiger-a1b2c3d4.tunnl.pro
 ```
 
 ## Stats Endpoint
@@ -303,9 +303,9 @@ Response:
    └──────────┘
 ```
 
-1. Client runs `ssh -t -R 80:localhost:8080 proxy.tunnl.gg`
+1. Client runs `ssh -t -R 80:localhost:8080 proxy.tunnl.pro`
 2. Server generates subdomain (e.g., `happy-tiger-a1b2c3d4`) and shows URL
-3. Browser requests `https://happy-tiger-a1b2c3d4.tunnl.gg`
+3. Browser requests `https://happy-tiger-a1b2c3d4.tunnl.pro`
 4. Server looks up tunnel, proxies request via SSH to client
 5. Client forwards to `localhost:8080`
 
@@ -322,7 +322,7 @@ SSH_ADDR=:2223 HTTP_ADDR=:8080 HTTPS_ADDR=:8443 STATS_ADDR=127.0.0.1:9091 \
 HOST_KEY_PATH=./host_key_dev ./tunnl
 ```
 
-Connect to dev instance: `ssh -t -R 80:localhost:8080 proxy.tunnl.gg -p 2223`
+Connect to dev instance: `ssh -t -R 80:localhost:8080 proxy.tunnl.pro -p 2223`
 
 ## Troubleshooting
 
@@ -346,7 +346,7 @@ sudo ufw status
 First-time clients must accept the host key:
 
 ```bash
-ssh -t -R 80:localhost:8080 proxy.tunnl.gg
+ssh -t -R 80:localhost:8080 proxy.tunnl.pro
 # Are you sure you want to continue connecting (yes/no)? yes
 ```
 
@@ -356,10 +356,10 @@ The `-t` flag is **required**:
 
 ```bash
 # Wrong
-ssh -R 80:localhost:8080 proxy.tunnl.gg
+ssh -R 80:localhost:8080 proxy.tunnl.pro
 
 # Correct
-ssh -t -R 80:localhost:8080 proxy.tunnl.gg
+ssh -t -R 80:localhost:8080 proxy.tunnl.pro
 ```
 
 ### Certificate Issues
