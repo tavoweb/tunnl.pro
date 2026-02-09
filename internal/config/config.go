@@ -6,7 +6,7 @@ import (
 )
 
 const (
-	DefaultDomain     = "tunnl.gg"
+	DefaultDomain     = "tunnl.pro"
 	InactivityTimeout = 2 * time.Hour
 	MaxTunnelsPerIP   = 3                // Reduced from 5
 	MaxTotalTunnels   = 1000
