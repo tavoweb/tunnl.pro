@@ -12,9 +12,9 @@ import (
 	"strings"
 	"time"
 
-	"tunnl.gg/internal/config"
-	"tunnl.gg/internal/subdomain"
-	"tunnl.gg/internal/tunnel"
+	"tunnl.pro/internal/config"
+	"tunnl.pro/internal/subdomain"
+	"tunnl.pro/internal/tunnel"
 )
 
 // ServeHTTP implements http.Handler for HTTPS requests

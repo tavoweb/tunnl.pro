@@ -10,8 +10,8 @@ import (
 
 	"golang.org/x/crypto/ssh"
 
-	"tunnl.gg/internal/config"
-	"tunnl.gg/internal/tunnel"
+	"tunnl.pro/internal/config"
+	"tunnl.pro/internal/tunnel"
 )
 
 type tcpipForwardRequest struct {
@@ -137,7 +137,7 @@ func (s *Server) HandleSSHConnection(conn net.Conn) {
 
 	urlMessage := fmt.Sprintf("\r\n"+
 		"  +-------------------------------------------------------------+\r\n"+
-		"  |                         tunnl.gg                            |\r\n"+
+		"  |                         tunnl.pro                            |\r\n"+
 		"  +-------------------------------------------------------------+\r\n"+
 		"  |  URL: %-53s |\r\n"+
 		"  |  Expires: %-49s |\r\n"+

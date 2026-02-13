@@ -10,7 +10,7 @@ import (
 	"testing"
 	"time"
 
-	"tunnl.gg/internal/config"
+	"tunnl.pro/internal/config"
 )
 
 func TestStripPort(t *testing.T) {
@@ -310,17 +310,17 @@ func TestHTTPRedirectHandler(t *testing.T) {
 	}{
 		{
 			"subdomain redirect",
-			"test-sub-12345678.tunnl.gg",
+			"test-sub-12345678.tunnl.pro",
 			"/foo",
 			http.StatusMovedPermanently,
-			"https://test-sub-12345678.tunnl.gg/foo",
+			"https://test-sub-12345678.tunnl.pro/foo",
 		},
 		{
 			"bare domain redirect",
-			"tunnl.gg",
+			"tunnl.pro",
 			"/",
 			http.StatusMovedPermanently,
-			"https://tunnl.gg/",
+			"https://tunnl.pro/",
 		},
 		{
 			"bad domain rejected",
@@ -396,8 +396,8 @@ func TestStatusCaptureWriter(t *testing.T) {
 func TestRedirectToWarningPage(t *testing.T) {
 	s := newTestServer(t)
 	sub := "happy-tiger-abcdef01"
-	r := httptest.NewRequest("GET", "https://happy-tiger-abcdef01.tunnl.gg/path?q=1", nil)
-	r.Host = "happy-tiger-abcdef01.tunnl.gg"
+	r := httptest.NewRequest("GET", "https://happy-tiger-abcdef01.tunnl.pro/path?q=1", nil)
+	r.Host = "happy-tiger-abcdef01.tunnl.pro"
 	w := httptest.NewRecorder()
 
 	s.redirectToWarningPage(w, r, sub)
@@ -407,13 +407,13 @@ func TestRedirectToWarningPage(t *testing.T) {
 	}
 
 	loc := w.Header().Get("Location")
-	if !strings.HasPrefix(loc, "https://tunnl.gg/#/warning?") {
-		t.Errorf("Location = %q, want prefix https://tunnl.gg/#/warning?", loc)
+	if !strings.HasPrefix(loc, "https://tunnl.pro/#/warning?") {
+		t.Errorf("Location = %q, want prefix https://tunnl.pro/#/warning?", loc)
 	}
-	if !strings.Contains(loc, "redirect="+url.QueryEscape("https://happy-tiger-abcdef01.tunnl.gg/path?q=1")) {
+	if !strings.Contains(loc, "redirect="+url.QueryEscape("https://happy-tiger-abcdef01.tunnl.pro/path?q=1")) {
 		t.Errorf("Location missing redirect param: %q", loc)
 	}
-	if !strings.Contains(loc, "subdomain="+url.QueryEscape("happy-tiger-abcdef01.tunnl.gg")) {
+	if !strings.Contains(loc, "subdomain="+url.QueryEscape("happy-tiger-abcdef01.tunnl.pro")) {
 		t.Errorf("Location missing subdomain param: %q", loc)
 	}
 }

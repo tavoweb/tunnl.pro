@@ -1,12 +1,12 @@
-# Tunnl.gg Architecture
+# tunnl.pro Architecture
 
 ## Overview
 
-Tunnl.gg is a minimal SSH tunneling service that exposes local applications to the internet via random subdomains with automatic SSL.
+tunnl.pro is a minimal SSH tunneling service that exposes local applications to the internet via random subdomains with automatic SSL.
 
 ```text
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                              TUNNL.GG SERVER                                │
+│                              tunnl.pro SERVER                                │
 │                                                                             │
 │  ┌───────────────┐  ┌───────────────┐  ┌───────────────┐  ┌─────────────┐   │
 │  │  SSH Server   │  │  HTTP Server  │  │ HTTPS Server  │  │Stats Server │   │
@@ -48,7 +48,7 @@ Tunnl.gg is a minimal SSH tunneling service that exposes local applications to t
 ## Package Structure
 
 ```text
-tunnl.gg/
+tunnl.pro/
 ├── cmd/tunnl/main.go           # Entry point, server initialization
 └── internal/
     ├── config/
@@ -74,7 +74,7 @@ Listens on port 22 (configurable) and handles remote port forwarding requests.
 
 **Flow:**
 
-1. Client connects: `ssh -t -R 80:localhost:8080 tunnl.gg`
+1. Client connects: `ssh -t -R 80:localhost:8080 tunnl.pro`
 2. Server performs SSH handshake with 30s timeout (no auth required)
 3. Server sets `TCP_NODELAY` for low latency
 4. Server generates memorable subdomain (e.g., `happy-tiger-a1b2c3d4`)
@@ -112,7 +112,7 @@ Listens on port 443 with pre-configured TLS certificates.
 
 **Request flow:**
 
-1. Extract subdomain from `Host` header (e.g., `happy-tiger-a1b2c3d4.tunnl.gg`)
+1. Extract subdomain from `Host` header (e.g., `happy-tiger-a1b2c3d4.tunnl.pro`)
 2. Validate subdomain format (adjective-noun-hex pattern)
 3. Look up tunnel in registry
 4. Check rate limit (10 req/s per tunnel)
@@ -157,7 +157,7 @@ type Server struct {
     sshConns      map[string][]*ssh.ServerConn // SSH connections per IP (for forced closure)
     mu            sync.RWMutex
     sshConfig     *ssh.ServerConfig
-    domain        string                     // Configurable domain (default: tunnl.gg)
+    domain        string                     // Configurable domain (default: tunnl.pro)
 
     // Stats (atomic counters)
     totalConnections uint64
@@ -269,7 +269,7 @@ type AbuseTracker struct {
 Browser                    Server                         Client
    │                         │                              │
    │  GET /api/users         │                              │
-   │  Host: abc123.tunnl.gg  │                              │
+   │  Host: abc123.tunnl.pro  │                              │
    ├────────────────────────►│                              │
    │                         │  1. TLS terminate            │
    │                         │  2. Validate subdomain       │
@@ -345,9 +345,9 @@ Browser                    Server                         Client
 | `HTTPS_ADDR` | `:443` | HTTPS server address |
 | `STATS_ADDR` | `127.0.0.1:9090` | Stats endpoint address |
 | `HOST_KEY_PATH` | `host_key` | SSH host key path |
-| `TLS_CERT` | `/etc/letsencrypt/live/tunnl.gg/fullchain.pem` | TLS certificate |
-| `TLS_KEY` | `/etc/letsencrypt/live/tunnl.gg/privkey.pem` | TLS private key |
-| `DOMAIN` | `tunnl.gg` | Domain name for the service |
+| `TLS_CERT` | `/etc/letsencrypt/live/tunnl.pro/fullchain.pem` | TLS certificate |
+| `TLS_KEY` | `/etc/letsencrypt/live/tunnl.pro/privkey.pem` | TLS private key |
+| `DOMAIN` | `tunnl.pro` | Domain name for the service |
 
 ## Limitations
 

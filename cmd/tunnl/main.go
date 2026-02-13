@@ -11,8 +11,8 @@ import (
 	"os/signal"
 	"syscall"
 
-	"tunnl.gg/internal/config"
-	"tunnl.gg/internal/server"
+	"tunnl.pro/internal/config"
+	"tunnl.pro/internal/server"
 )
 
 func main() {

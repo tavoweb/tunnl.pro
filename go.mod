@@ -1,4 +1,4 @@
-module tunnl.gg
+module tunnl.pro
 
 go 1.24.5
 

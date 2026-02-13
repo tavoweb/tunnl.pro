@@ -7,7 +7,7 @@ import (
 	"sync"
 	"time"
 
-	"tunnl.gg/internal/config"
+	"tunnl.pro/internal/config"
 )
 
 // SSHCloser is an interface for closing SSH connections

@@ -6,7 +6,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"tunnl.gg/internal/config"
+	"tunnl.pro/internal/config"
 )
 
 // BlockCallback is called when an IP is blocked

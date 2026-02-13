@@ -14,9 +14,9 @@ import (
 	"github.com/mikesmitty/edkey"
 	"golang.org/x/crypto/ssh"
 
-	"tunnl.gg/internal/config"
-	"tunnl.gg/internal/subdomain"
-	"tunnl.gg/internal/tunnel"
+	"tunnl.pro/internal/config"
+	"tunnl.pro/internal/subdomain"
+	"tunnl.pro/internal/tunnel"
 )
 
 // Server manages SSH tunnels and HTTP proxying
